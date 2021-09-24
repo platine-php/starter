@@ -1,0 +1,1 @@
+Platine starter application with authentication & authorization to quickly setup and start working on a new Platine Framework project

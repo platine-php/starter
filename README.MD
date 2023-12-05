@@ -5,12 +5,12 @@ It is modular, so you may use this project as a base and build your own applicat
 
 
 [![Project Status](http://opensource.box.com/badges/active.svg)](http://opensource.box.com/badges)
-[![Latest Stable Version](https://poser.pugx.org/platine-php/starter/v/stable)](https://packagist.org/packages/platine-php/app)
-[![Latest Unstable Version](https://poser.pugx.org/platine-php/starter/v/unstable)](https://packagist.org/packages/platine-php/app)
-[![Total Downloads](https://poser.pugx.org/platine-php/starter/downloads)](https://packagist.org/packages/platine-php/app)
-[![License](https://poser.pugx.org/platine-php/starter/license)](https://packagist.org/packages/platine-php/app)  
+[![Latest Stable Version](https://poser.pugx.org/platine-php/starter/v/stable)](https://packagist.org/packages/platine-php/starter)
+[![Latest Unstable Version](https://poser.pugx.org/platine-php/starter/v/unstable)](https://packagist.org/packages/platine-php/starter)
+[![Total Downloads](https://poser.pugx.org/platine-php/starter/downloads)](https://packagist.org/packages/platine-php/starter)
+[![License](https://poser.pugx.org/platine-php/starter/license)](https://packagist.org/packages/platine-php/starter)  
 ![Tests](https://github.com/platine-php/starter/actions/workflows/ci.yml/badge.svg)
-[![Quality Score](https://img.shields.io/scrutinizer/g/platine-php/starter.svg?style=flat-square)](https://scrutinizer-ci.com/g/platine-php/app)
+[![Quality Score](https://img.shields.io/scrutinizer/g/platine-php/starter.svg?style=flat-square)](https://scrutinizer-ci.com/g/platine-php/starter)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/c54c59491a1b4ef09c8d946d76dad729)](https://app.codacy.com/gh/platine-php/starter/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/c54c59491a1b4ef09c8d946d76dad729)](https://app.codacy.com/gh/platine-php/starter/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
 

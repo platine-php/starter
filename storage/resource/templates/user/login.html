@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <base href="{{ app_url }}" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="{% static fonts/circular-std/style.css %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static theme/libs/bootstrap-icons/font/bootstrap-icons.css %}">
+    <link rel="stylesheet" href="{% static theme/libs/@mdi/font/css/materialdesignicons.min.css %}">
+    <link rel="stylesheet" href="{% static theme/css/theme.min.css %}">
+    <link rel="stylesheet" href="{% static select2/css/select2.min.css %}">
+    <link rel="stylesheet" href="{% static fonts/fontawesome/css/fontawesome-all.css %}">
+    <link rel="stylesheet" href="{% static css/app.css %}">
+    <title>Authentication - PLATINE STARTER</title>
+</head>
+<body class="bg-light">
+    <!-- Container fluid -->
+    <div class="container d-flex flex-column">
+       {% block flash %}
+            {% capture flashSuccess %}{% flash success %}{% endcapture %}
+            {% capture flashWarning %}{% flash warning %}{% endcapture %}
+            {% capture flashError %}{% flash error %}{% endcapture %}
+            {% capture flashInfo %}{% flash info %}{% endcapture %}
+
+            {% if flashSuccess %}
+                <br />
+                <p class="alert alert-success">{{ flashSuccess }}</p>
+            {% endif %}
+
+            {% if flashWarning %}
+                <br />
+                <p class="alert alert-warning">{{ flashWarning }}</p>
+            {% endif %}
+
+            {% if flashError %}
+                <br />
+                <p class="alert alert-danger">{{ flashError }}</p>
+            {% endif %}
+
+            {% if flashInfo %}
+                <br />
+                <p class="alert alert-info">{{ flashInfo }}</p>
+            {% endif %}
+        {% endblock %} <!-- end block flash -->
+       {% block body %}
+            <div class="row align-items-center justify-content-center g-0 min-vh-100">
+                <div class="col-md-4 col-xxl-4 py-8 py-xl-0">
+                  <!-- Card -->
+                  <div class="card smooth-shadow-md">
+                    <!-- Card body -->
+                    <div class="card-body p-6">
+                      <div class="mb-4 text-center">
+                        <a href="#"><img src="{% static images/logo.png %}" class="mb-2" alt="Logo"></a>
+                        <p class="mb-6 text-center">Please enter your login details.</p>
+                      </div>
+                      <!-- Form -->
+                      <form action="{% current_url %}" method="post">
+                        {% csrf %}
+                        <!-- Username -->
+                        <div class="mb-3">
+                          <label for="username" class="form-label">Username:</label>
+                          <input type="text" value="{{ param.username }}" class="form-control" name="username" placeholder="Enter your username" required="true">
+                          <span class="ferror">{{ errors.username }}</span>
+                        </div>
+                        <!-- Password -->
+                        <div class="mb-3">
+                          <label for="password" class="form-label">Password:</label>
+                          <input type="password" id="password" class="form-control" name="password" placeholder="Enter your password" required="true">
+                          <span class="ferror">{{ errors.password }}</span>
+                        </div>
+                        <div>
+                          <!-- Button -->
+                          <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Connexion</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+            </div>
+       {% endblock %}<!-- end block body -->
+    </div><!-- ./container-fluid -->
+    
+    <!-- ============================================================== -->
+    <!-- Optional JavaScript -->
+    <script src="{% static theme/libs/jquery/dist/jquery.min.js %}"></script>
+    <script src="{% static theme/libs/bootstrap/dist/js/bootstrap.bundle.min.js %}"></script>
+    <script src="{% static theme/libs/jquery-slimscroll/jquery.slimscroll.min.js %}"></script>
+    <script src="{% static theme/libs/feather-icons/dist/feather.min.js %}"></script>
+    <script src="{% static theme/js/theme.min.js %}"></script>
+    <script src="{% static select2/js/select2.full.min.js %}"></script>
+    <!-- main js -->
+    <script src="{% static js/app.js %}"></script>
+</body>
+</html>

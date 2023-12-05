@@ -6,8 +6,10 @@ use Platine\Framework\Auth\Entity\User;
 
     return [
         'authentication' => [
-            'login_route' => 'login',
-            'url_whitelist' => [],
+            'login_route' => 'user_login',
+            'url_whitelist' => [
+                'user_login',
+            ],
             'user_entity' => User::class
         ],
         'authorization' => [

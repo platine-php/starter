@@ -80,7 +80,7 @@ class HomeAction implements RequestHandlerInterface
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $data = [];
-        
+
         return new TemplateResponse(
             $this->template,
             'home',

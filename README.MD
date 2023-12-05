@@ -1,7 +1,7 @@
 ## PLATINE STARTER
 **Platine Starter** is a `Platine Framework` based simple starter project. Most of the commonly needed features of an 
 application like `Authentication`, `Authorisation`, `User` and `Role management`, `Application Backend`, are available here. 
-It is modular, so you may use this project as a base and build your own modules.  
+It is modular, so you may use this project as a base and build your own application.  
 
 
 [![Project Status](http://opensource.box.com/badges/active.svg)](http://opensource.box.com/badges)

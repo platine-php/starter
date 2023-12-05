@@ -1,6 +1,6 @@
 {
     "name": "platine-php/starter",
-    "description": "Platine Starter is a `Platine Framework` based simple starter project",
+    "description": "Platine Starter is a Platine Framework based simple starter project",
     "type": "project",
     "license": "MIT",
     "keywords": ["application", "website", "development", "framework", "php", "platine"],

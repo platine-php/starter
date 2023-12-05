@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="{% static fonts/circular-std/style.css %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static theme/libs/bootstrap-icons/font/bootstrap-icons.css %}">
+    <link rel="stylesheet" href="{% static theme/libs/@mdi/font/css/materialdesignicons.min.css %}">
+    <link rel="stylesheet" href="{% static theme/css/theme.min.css %}">
+    <link rel="stylesheet" href="{% static select2/css/select2.min.css %}">
+    <link rel="stylesheet" href="{% static fonts/fontawesome/css/fontawesome-all.css %}">
+    <link rel="stylesheet" href="{% static css/app.css %}">
+    <link href="{% static images/favicon.ico %}" type="image/x-icon" rel="shortcut icon" />
+    {% block css %}
+
+    {% endblock %}
+    <title>PLATINE STARTER</title>
+</head>
+<body class="bg-light">
+    <div id="db-wrapper">
+        {% block sidebar %}
+            <nav class="navbar-vertical navbar">
+                <div class="nav-scroller">
+                    <!-- Brand logo -->
+                    <a class="navbar-brand" href="{% route_url home %}">PLATINE STARTER</a>
+                    <!-- Navbar nav -->
+                    <ul class="navbar-nav flex-column" id="sideNavbar">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{% route_url home %}">
+                                <i data-feather="home" class="nav-icon icon-xs me-2"></i>  Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                           <a class="nav-link has-arrow collapsed" href="#!" data-bs-toggle="collapse" data-bs-target="#user" aria-expanded="false" aria-controls="navPages">
+                               <i data-feather="user" class="nav-icon icon-xs me-2"></i> Users
+                           </a>
+                           <div id="user" class="collapse" data-bs-parent="#sideNavbar">
+                               <ul class="nav flex-column">
+                                   <li class="nav-item"><a class="nav-link" href="{% route_url home %}">Permissions</a></li>
+                                   <li class="nav-item"><a class="nav-link" href="{% route_url home %}">Roles</a></li>
+                                   <li class="nav-item"><a class="nav-link" href="{% route_url home %}">Users</a></li>
+                               </ul>
+                           </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        {% endblock %} <!-- sidebar -->
+        
+        <!-- page content -->
+        <div id="page-content">
+            <!-- Navbar-->
+            {% block navbar %}
+                <div class="header @@classList">
+                    <nav class="navbar-classic navbar navbar-expand-lg">
+                        <a id="nav-toggle" href="#"><i data-feather="menu" class="nav-icon me-2 icon-xs"></i></a>
+
+                        <!--Navbar nav -->
+                        <ul class="navbar-nav navbar-right-wrap ms-auto d-flex nav-top-wrap">
+                            <!-- user profile -->
+                            <li class="dropdown ms-2">
+                                <a class="rounded-circle" href="#" role="button" id="dropdownUser"
+                                  data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  <div class="avatar avatar-md avatar-indicators avatar-online">
+                                    <img alt="avatar" src="{% static images/user-avatar.png %}"
+                                      class="rounded-circle" />
+                                  </div>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end"
+                                  aria-labelledby="dropdownUser">
+                                    <div class="px-4 pb-0 pt-2">
+                                      <div class="lh-1 ">
+                                        <h5 class="mb-1"> {% session user.firstname %} {% session user.lastname %}</h5>
+                                      </div>
+                                    </div>
+                                    <ul class="list-unstyled">
+                                      <li>
+                                        <a class="dropdown-item" href="{% route_url home %}">
+                                          <i class="me-2 icon-xxs dropdown-item-icon" data-feather="user"></i>Profile
+                                        </a>
+                                      </li>
+                                      <li>
+                                        <a class="dropdown-item" href="{% route_url home %}">
+                                          <i class="me-2 icon-xxs dropdown-item-icon" data-feather="power"></i>Logout
+                                        </a>
+                                      </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul><!-- /.navbar-nav -->
+                    </nav>
+                </div><!-- /.header @@classList-->
+            {% endblock %} <!-- navbar -->
+            
+            <!-- Container fluid -->
+            <div class="container-fluid px-3 py-4 platine-app">
+               {% block flash %}
+                    {% capture flashSuccess %}{% flash success %}{% endcapture %}
+                    {% capture flashWarning %}{% flash warning %}{% endcapture %}
+                    {% capture flashError %}{% flash error %}{% endcapture %}
+                    {% capture flashInfo %}{% flash info %}{% endcapture %}
+
+                    {% if flashSuccess %}
+                        <p class="alert alert-success">{{ flashSuccess }}</p>
+                        <br />
+                    {% endif %}
+
+                    {% if flashWarning %}
+                        <p class="alert alert-warning">{{ flashWarning }}</p>
+                        <br />
+                    {% endif %}
+
+                    {% if flashError %}
+                        <p class="alert alert-danger">{{ flashError }}</p>
+                        <br />
+                    {% endif %}
+
+                    {% if flashInfo %}
+                        <p class="alert alert-info">{{ flashInfo }}</p>
+                        <br />
+                    {% endif %}
+                {% endblock %} <!-- end block flash -->
+                
+                {% block body %}
+
+                {% endblock %}<!-- end block body -->
+            </div><!-- ./container-fluid -->
+            
+            <!-- footer -->
+            {% block footer %}
+                <hr />
+                <div class="footer">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <b>Platine Starter &copy; <script>document.write(new Date().getFullYear())</script></b>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="text-md-right footer-links d-none d-sm-block">
+                                    <a target="_blank" href="https://github.com/platine-php/app"><b>Platine Framework</b></a>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                    </div>
+                </div>
+            {% endblock %}<!-- end block footer -->
+        </div><!-- /.page-content -->
+    </div><!-- /.db-wrapper -->
+    
+    <!-- ============================================================== -->
+    <!-- end main wrapper  -->
+    <!-- ============================================================== -->
+    <!-- Optional JavaScript -->
+    <!-- jquery 3.3.1 -->
+    <script src="{% static theme/libs/jquery/dist/jquery.min.js %}"></script>
+    <script src="{% static theme/libs/bootstrap/dist/js/bootstrap.bundle.min.js %}"></script>
+    <script src="{% static theme/libs/jquery-slimscroll/jquery.slimscroll.min.js %}"></script>
+    <script src="{% static theme/libs/feather-icons/dist/feather.min.js %}"></script>
+    <script src="{% static theme/js/theme.min.js %}"></script>
+    <script src="{% static select2/js/select2.full.min.js %}"></script>
+    <!-- main js -->
+    <script src="{% static js/app.js %}"></script>
+    {% block script %}
+
+    {% endblock %}<!-- end block body -->
+</body>
+</html>

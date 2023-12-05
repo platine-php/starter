@@ -1,7 +1,9 @@
 <?php
 
+use Platine\Framework\Template\Tag\AuthTag;
 use Platine\Framework\Template\Tag\CsrfTag;
 use Platine\Framework\Template\Tag\CurrentUrlTag;
+use Platine\Framework\Template\Tag\PermissionTag;
 use Platine\Framework\Template\Tag\RouteUrlTag;
 use Platine\Framework\Template\Tag\SessionFlashTag;
 use Platine\Framework\Template\Tag\SessionTag;
@@ -24,5 +26,7 @@ use Platine\Template\Cache\NullCache;
             'session' => SessionTag::class,
             'flash' => SessionFlashTag::class,
             'route_url' => RouteUrlTag::class,
+            'auth' => AuthTag::class,
+            'permission' => PermissionTag::class,
         ],
     ];

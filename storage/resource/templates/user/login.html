@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <base href="{{ app_url }}" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="{% static fonts/circular-std/style.css %}" rel="stylesheet">
@@ -16,32 +15,31 @@
 <body class="bg-light">
     <!-- Container fluid -->
     <div class="container d-flex flex-column">
-       {% block flash %}
-            {% capture flashSuccess %}{% flash success %}{% endcapture %}
-            {% capture flashWarning %}{% flash warning %}{% endcapture %}
-            {% capture flashError %}{% flash error %}{% endcapture %}
-            {% capture flashInfo %}{% flash info %}{% endcapture %}
+        {% flash info %}
+        {% capture flashSuccess %}{% flash success %}{% endcapture %}
+        {% capture flashWarning %}{% flash warning %}{% endcapture %}
+        {% capture flashError %}{% flash error %}{% endcapture %}
+        {% capture flashInfo %}{% flash info %}{% endcapture %}
 
-            {% if flashSuccess %}
-                <br />
-                <p class="alert alert-success">{{ flashSuccess }}</p>
-            {% endif %}
+        {% if flashSuccess %}
+            <br />
+            <p class="alert alert-success">{{ flashSuccess }}</p>
+        {% endif %}
 
-            {% if flashWarning %}
-                <br />
-                <p class="alert alert-warning">{{ flashWarning }}</p>
-            {% endif %}
+        {% if flashWarning %}
+            <br />
+            <p class="alert alert-warning">{{ flashWarning }}</p>
+        {% endif %}
 
-            {% if flashError %}
-                <br />
-                <p class="alert alert-danger">{{ flashError }}</p>
-            {% endif %}
+        {% if flashError %}
+            <br />
+            <p class="alert alert-danger">{{ flashError }}</p>
+        {% endif %}
 
-            {% if flashInfo %}
-                <br />
-                <p class="alert alert-info">{{ flashInfo }}</p>
-            {% endif %}
-        {% endblock %} <!-- end block flash -->
+        {% if flashInfo %}
+            <br />
+            <p class="alert alert-info">{{ flashInfo }}</p>
+        {% endif %}
        {% block body %}
             <div class="row align-items-center justify-content-center g-0 min-vh-100">
                 <div class="col-md-4 col-xxl-4 py-8 py-xl-0">

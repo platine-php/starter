@@ -2,6 +2,7 @@
 
 use Platine\App\Provider\AppServiceProvider;
 use Platine\App\Provider\ConsoleServiceProvider;
+use Platine\App\Provider\PermissionServiceProvider;
 use Platine\App\Provider\UserServiceProvider;
 use Platine\Framework\Service\Provider\AuthServiceProvider;
 use Platine\Framework\Service\Provider\CommandServiceProvider;
@@ -41,5 +42,6 @@ use Platine\Framework\Service\Provider\TemplateServiceProvider;
 
         //Custom
         AppServiceProvider::class,
+        PermissionServiceProvider::class,
         UserServiceProvider::class,
     ];

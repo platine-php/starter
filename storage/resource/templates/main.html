@@ -36,7 +36,9 @@
                            </a>
                            <div id="user" class="collapse" data-bs-parent="#sideNavbar">
                                <ul class="nav flex-column">
-                                   <li class="nav-item"><a class="nav-link" href="{% route_url home %}">Permissions</a></li>
+                                   {% permission permission_list %}
+                                        <li class="nav-item"><a class="nav-link" href="{% route_url permission_list %}">Permissions</a></li>
+                                   {% endpermission %}
                                    <li class="nav-item"><a class="nav-link" href="{% route_url home %}">Roles</a></li>
                                    <li class="nav-item"><a class="nav-link" href="{% route_url home %}">Users</a></li>
                                </ul>

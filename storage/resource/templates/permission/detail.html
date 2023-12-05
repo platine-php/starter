@@ -1,0 +1,97 @@
+{% extends "main" %}
+{% block body %}
+<div class="card mb-4">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-header">
+                    <h2 class="pageheader-title">Détail [{{ permission.description }}]</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class='row'>
+            <div class='col-md-7'>
+                <div class='table-responsive'>
+                    <table class="detail table table-sm table-bordered">
+                        <tr>
+                            <td>ID</td>
+                            <td><b>{{ permission.id }}</b></td>
+                        </tr>
+                        <tr>
+                            <td>Code</td>
+                            <td><b>{{ permission.code }}</b></td>
+                        </tr>
+                        <tr>
+                            <td>Description</td>
+                            <td><b>{{ permission.description }}</b></td>
+                        </tr>
+                        <tr>
+                            <td>Parent</td>
+                            <td><b>{{ permission.depend }}</b></td>
+                        </tr>
+                        <tr>
+                            <td>Date de création</td>
+                            <td><b>{{ permission.created_at|date:"Y-m-d H:i:s" }}</b></td>
+                        </tr>
+                        <tr>
+                            <td>Date de mise à jour</td>
+                            <td><b>{{ permission.updated_at|date:"Y-m-d H:i:s" }}</b></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <hr />
+                <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="roles-tab" data-bs-toggle="tab" href="#roles-content" role="tab" aria-controls="roles" aria-selected="false">Roles <b class="badge badge-dark">{{ permission.roles.size }}</b></a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <!-- tab start -->
+                    <div class="tab-pane show fade active" id="roles-content" role="tabpanel" aria-labelledby="roles-tab">
+                        {% if permission.roles.size > 0 %}
+                            <div class="table-responsive">
+                                <table class="table table-hover table-sm table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Name</th>
+                                            <th>Description</th>
+                                            <th>Created at</th>
+                                            <th>Updated at</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for u in permission.roles %}
+                                            <tr>
+                                                <td>{{ u.id }}</td>
+                                                <td>{{ u.name }}</td>
+                                                <td>{{ u.description }}</td>
+                                                <td>{{ u.created_at|date:"Y-m-d H:i:s" }}</td>
+                                                <td>{{ u.updated_at|date:"Y-m-d H:i:s" }}</td>
+                                                <td  class="actions">
+                                                    {% permission role_detail %}
+                                                        <a href="{% route_url role_detail id:u.id %}" class="btn btn-xs btn-icon btn-pill btn-dark">
+                                                            <i class="fa fa-fw fa-eye"></i>
+                                                        </a>
+                                                    {% endpermission %}
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        {% else %}
+                            <p class="alert alert-info">No role for this permission</p>
+                        {% endif %}
+                    </div>
+                    <!-- tab end -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}<!-- end block body -->

@@ -1,15 +1,18 @@
-## PLATINE PHP
-**Platine PHP is a lightweight, high-performance, simple and elegant PHP Web framework**
+## PLATINE STARTER
+**Platine Starter** is a `Platine Framework` based simple starter project. Most of the commonly needed features of an 
+application like `Authentication`, `Authorisation`, `User` and `Role management`, `Application Backend`, are available here. 
+It is modular, so you may use this project as a base and build your own modules.  
+
 
 [![Project Status](http://opensource.box.com/badges/active.svg)](http://opensource.box.com/badges)
-[![Latest Stable Version](https://poser.pugx.org/platine-php/app/v/stable)](https://packagist.org/packages/platine-php/app)
-[![Latest Unstable Version](https://poser.pugx.org/platine-php/app/v/unstable)](https://packagist.org/packages/platine-php/app)
-[![Total Downloads](https://poser.pugx.org/platine-php/app/downloads)](https://packagist.org/packages/platine-php/app)
-[![License](https://poser.pugx.org/platine-php/app/license)](https://packagist.org/packages/platine-php/app)  
-![Tests](https://github.com/platine-php/app/actions/workflows/ci.yml/badge.svg)
-[![Quality Score](https://img.shields.io/scrutinizer/g/platine-php/app.svg?style=flat-square)](https://scrutinizer-ci.com/g/platine-php/app)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/775a3aa3cc1a4e4282381633bf003128)](https://app.codacy.com/gh/platine-php/app/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
-[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/775a3aa3cc1a4e4282381633bf003128)](https://app.codacy.com/gh/platine-php/app/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
+[![Latest Stable Version](https://poser.pugx.org/platine-php/starter/v/stable)](https://packagist.org/packages/platine-php/app)
+[![Latest Unstable Version](https://poser.pugx.org/platine-php/starter/v/unstable)](https://packagist.org/packages/platine-php/app)
+[![Total Downloads](https://poser.pugx.org/platine-php/starter/downloads)](https://packagist.org/packages/platine-php/app)
+[![License](https://poser.pugx.org/platine-php/starter/license)](https://packagist.org/packages/platine-php/app)  
+![Tests](https://github.com/platine-php/starter/actions/workflows/ci.yml/badge.svg)
+[![Quality Score](https://img.shields.io/scrutinizer/g/platine-php/starter.svg?style=flat-square)](https://scrutinizer-ci.com/g/platine-php/app)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/c54c59491a1b4ef09c8d946d76dad729)](https://app.codacy.com/gh/platine-php/starter/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/c54c59491a1b4ef09c8d946d76dad729)](https://app.codacy.com/gh/platine-php/starter/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
 
 ### Requirements 
 You can use **Platine** for web or command line application. For web application: 
@@ -21,28 +24,11 @@ For CLI application just PHP executable is enough.
 ### Installation
 Platine Application can be installed using composer
 ```bash
-composer create-project platine-php/app
+composer create-project platine-php/starter
 ```
-
-### Install on docker
-If you want to test platine using docker follow the step below:
-- Build the platine image
-```bash
-docker-compose build app
-```
-- Run the containers
-```bash
-docker-compose up -d
-```
-- Install composer dependencies
-```bash
-docker-compose exec app composer install --no-interaction --optimize-autoloader --no-dev
-```
-Then open `http://server_domain_or_IP:8000`, for example `http://localhost:8000`.  
 
 ### License
 MIT License See [LICENSE.MD](LICENSE.MD)
 
 ### Resources 
- - [Documentation](https://docs.platine-php.com)  
- - Tutorial Youtube (French): [Budget Management Application](https://www.youtube.com/playlist?list=PLbUHyVcL-6Q8H6ip40eSdpt4MjRXYGPz9)
+ - [Documentation](https://docs.platine-php.com)

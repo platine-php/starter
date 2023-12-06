@@ -1,0 +1,136 @@
+{% extends "main" %}
+{% block body %}
+<div class="card mb-4">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-header">
+                    <h2 class="pageheader-title">Détail [{{ user.lastname }} {{ user.firstname }}]</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class='row'>
+            <div class='col-md-7'>
+                <div class='table-responsive'>
+                    <table class="detail table table-sm table-bordered">
+                        <tr>
+                            <td>ID</td>
+                            <td><b>{{ user.id }}</b></td>
+                        </tr>
+                        <tr>
+                            <td>Username</td>
+                            <td><b>{{ user.username }}</b></td>
+                        </tr>
+                        <tr>
+                            <td>Lastname</td>
+                            <td><b>{{ user.lastname }}</b></td>
+                        </tr>
+                        <tr>
+                            <td>Firstname</td>
+                            <td><b>{{ user.firstname }}</b></td>
+                        </tr>
+                        <tr>
+                            <td>E-mail</td>
+                            <td><b>{{ user.email }}</b></td>
+                        </tr>
+                        <tr>
+                            <td>Status</td>
+                            <td><b>{{ user_status[user.status] }}</b></td>
+                        </tr>
+                        <tr>
+                            <td>Role</td>
+                            <td><b>{{ user.role }}</b></td>
+                        </tr>
+                        <tr>
+                            <td>Created at</td>
+                            <td><b>{{ user.created_at|date:"Y-m-d H:i:s" }}</b></td>
+                        </tr>
+                        <tr>
+                            <td>Updated at</td>
+                            <td><b>{{ user.updated_at|date:"Y-m-d H:i:s" }}</b></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class='col-md-5'>
+                <p class="text-center">
+                    {% permission user_list %}
+                        <a href="{% route_url user_list %}" class="btn btn-sm btn-dark">
+                            <i class="fa fw fa-th"></i> Users
+                        </a>
+                    {% endpermission %}
+                    
+                    {% permission user_create %}
+                        <a href="{% route_url user_create %}" class="btn btn-sm btn-success">
+                            <i class="fa fw fa-plus-circle"></i> Create
+                        </a>
+                    {% endpermission %}
+                    
+                    {% permission user_update %}
+                        <a href="{% route_url user_update id:user.id %}" class="btn btn-sm btn-primary">
+                            <i class="fa fw fa-edit"></i> Edit
+                        </a>
+                    {% endpermission %}
+                    
+                    {% permission user_delete %}
+                        <a href="{% route_url user_delete id:user.id %}?{% csrf query:1 %}" data-text-confirm="Are you sure you want to delete this element ?" class="btn btn-sm btn-danger">
+                            <i class="fa fw fa-trash"></i> Delete
+                        </a>
+                    {% endpermission %}
+                </p>
+            </div>
+            <div class="col-md-12">
+                <hr />
+                <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="roles-tab" data-bs-toggle="tab" href="#roles-content" role="tab" aria-controls="roles" aria-selected="false">Roles <b class="badge bg-dark">{{ user.roles.size }}</b></a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <!-- tab start -->
+                    <div class="tab-pane show fade active" id="roles-content" role="tabpanel" aria-labelledby="roles-tab">
+                        {% if user.roles.size > 0 %}
+                            <div class="table-responsive">
+                                <table class="table table-hover table-sm table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Name</th>
+                                            <th>Description</th>
+                                            <th>Created at</th>
+                                            <th>Updated at</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for u in user.roles %}
+                                            <tr>
+                                                <td>{{ u.id }}</td>
+                                                <td>{{ u.name }}</td>
+                                                <td>{{ u.description }}</td>
+                                                <td>{{ u.created_at|date:"Y-m-d H:i:s" }}</td>
+                                                <td>{{ u.updated_at|date:"Y-m-d H:i:s" }}</td>
+                                                <td  class="actions">
+                                                    {% permission role_detail %}
+                                                        <a href="{% route_url role_detail id:u.id %}" class="btn btn-xs btn-icon btn-pill btn-dark">
+                                                            <i class="fa fa-fw fa-eye"></i>
+                                                        </a>
+                                                    {% endpermission %}
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        {% else %}
+                            <p class="alert alert-info">No role for this user</p>
+                        {% endif %}
+                    </div>
+                    <!-- tab end -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}<!-- end block body -->

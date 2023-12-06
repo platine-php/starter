@@ -42,7 +42,9 @@
                                    {% permission role_list %}
                                        <li class="nav-item"><a class="nav-link" href="{% route_url role_list %}">Roles</a></li>
                                    {% endpermission %}
-                                   <li class="nav-item"><a class="nav-link" href="{% route_url home %}">Users</a></li>
+                                   {% permission user_list %}
+                                        <li class="nav-item"><a class="nav-link" href="{% route_url user_list %}">Users</a></li>
+                                   {% endpermission %}
                                </ul>
                            </div>
                         </li>

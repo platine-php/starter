@@ -2,30 +2,33 @@
 
 declare(strict_types=1);
 
-namespace Platine\App\Http\Action\Permission;
+namespace Platine\App\Http\Action\Role;
 
 use Exception;
+use Platine\App\Helper\StatusList;
+use Platine\App\Param\RoleParam;
+use Platine\App\Validator\RoleValidator;
+use Platine\Framework\Auth\Entity\Role;
+use Platine\Framework\Auth\Repository\PermissionRepository;
+use Platine\Framework\Auth\Repository\RoleRepository;
+use Platine\Framework\Helper\Flash;
+use Platine\Framework\Http\RequestData;
+use Platine\Framework\Http\Response\RedirectResponse;
+use Platine\Framework\Http\Response\TemplateResponse;
+use Platine\Framework\Http\RouteHelper;
 use Platine\Http\ResponseInterface;
 use Platine\Http\ServerRequestInterface;
-use Platine\Framework\Http\RequestData;
-use Platine\Framework\Http\Response\TemplateResponse;
-use Platine\Framework\Http\Response\RedirectResponse;
 use Platine\Lang\Lang;
-use Platine\Pagination\Pagination;
-use Platine\Template\Template;
-use Platine\Framework\Helper\Flash;
-use Platine\Framework\Http\RouteHelper;
 use Platine\Logger\LoggerInterface;
-use Platine\Framework\Auth\Repository\PermissionRepository;
-use Platine\Framework\Auth\Entity\Permission;
-use Platine\App\Param\PermissionParam;
-use Platine\App\Validator\PermissionValidator;
+use Platine\Pagination\Pagination;
+use Platine\Stdlib\Helper\Arr;
+use Platine\Template\Template;
 
 /**
-* @class PermissionAction
-* @package Platine\App\Http\Action\Permission
+* @class RoleAction
+* @package Platine\App\Http\Action\Role
 */
-class PermissionAction
+class RoleAction
 {
     /**
     * The Lang instance
@@ -69,7 +72,17 @@ class PermissionAction
     */
     protected PermissionRepository $permissionRepository;
 
+    /**
+    * The RoleRepository instance
+    * @var RoleRepository
+    */
+    protected RoleRepository $roleRepository;
 
+    /**
+    * The StatusList instance
+    * @var StatusList
+    */
+    protected StatusList $statusList;
 
     /**
     * Create new instance
@@ -80,6 +93,8 @@ class PermissionAction
     * @param RouteHelper $routeHelper
     * @param LoggerInterface $logger
     * @param PermissionRepository $permissionRepository
+    * @param RoleRepository $roleRepository
+    * @param StatusList $statusList
     */
     public function __construct(
         Lang $lang,
@@ -88,7 +103,9 @@ class PermissionAction
         Flash $flash,
         RouteHelper $routeHelper,
         LoggerInterface $logger,
-        PermissionRepository $permissionRepository
+        PermissionRepository $permissionRepository,
+        RoleRepository $roleRepository,
+        StatusList $statusList
     ) {
         $this->lang = $lang;
         $this->pagination = $pagination;
@@ -97,6 +114,8 @@ class PermissionAction
         $this->routeHelper = $routeHelper;
         $this->logger = $logger;
         $this->permissionRepository = $permissionRepository;
+        $this->roleRepository = $roleRepository;
+        $this->statusList = $statusList;
     }
 
     /**
@@ -108,7 +127,7 @@ class PermissionAction
     {
         $context = [];
         $param = new RequestData($request);
-        $totalItems = $this->permissionRepository->query()
+        $totalItems = $this->roleRepository->query()
                                                ->count('id');
 
         $currentPage = (int) $param->get('page', 1);
@@ -119,10 +138,10 @@ class PermissionAction
         $limit = $this->pagination->getItemsPerPage();
         $offset = $this->pagination->getOffset();
 
-        $results = $this->permissionRepository->query()
+        $results = $this->roleRepository->query()
                                             ->offset($offset)
                                             ->limit($limit)
-                                            ->orderBy('code', 'ASC')
+                                            ->orderBy('name', 'ASC')
                                             ->all();
 
         $context['list'] = $results;
@@ -131,7 +150,7 @@ class PermissionAction
 
         return new TemplateResponse(
             $this->template,
-            'permission/list',
+            'role/list',
             $context
         );
     }
@@ -146,21 +165,22 @@ class PermissionAction
         $context = [];
         $id = (int) $request->getAttribute('id');
 
-        /** @var Permission|null $permission */
-        $permission = $this->permissionRepository->find($id);
+        /** @var Role|null $role */
+        $role = $this->roleRepository->find($id);
 
-        if ($permission === null) {
+        if ($role === null) {
             $this->flash->setError($this->lang->tr('This record doesn\'t exist'));
 
             return new RedirectResponse(
-                $this->routeHelper->generateUrl('permission_list')
+                $this->routeHelper->generateUrl('role_list')
             );
         }
-        $context['permission'] = $permission;
+        $context['role'] = $role;
+        $context['user_status'] = $this->statusList->getUserStatus();
 
         return new TemplateResponse(
             $this->template,
-            'permission/detail',
+            'role/detail',
             $context
         );
     }
@@ -175,7 +195,7 @@ class PermissionAction
         $context = [];
         $param = new RequestData($request);
 
-        $formParam = new PermissionParam($param->posts());
+        $formParam = new RoleParam($param->posts());
         $context['param'] = $formParam;
 
         $permissions = $this->permissionRepository->orderBy('code')
@@ -186,24 +206,24 @@ class PermissionAction
         if ($request->getMethod() === 'GET') {
             return new TemplateResponse(
                 $this->template,
-                'permission/create',
+                'role/create',
                 $context
             );
         }
 
-        $validator = new PermissionValidator($formParam, $this->lang);
+        $validator = new RoleValidator($formParam, $this->lang);
         if ($validator->validate() === false) {
             $context['errors'] = $validator->getErrors();
 
             return new TemplateResponse(
                 $this->template,
-                'permission/create',
+                'role/create',
                 $context
             );
         }
 
-        $entityExist = $this->permissionRepository->findBy([
-                                               'code' => $formParam->getCode(),
+        $entityExist = $this->roleRepository->findBy([
+                                               'name' => $formParam->getName(),
                                            ]);
 
         if ($entityExist !== null) {
@@ -211,25 +231,30 @@ class PermissionAction
 
             return new TemplateResponse(
                 $this->template,
-                'permission/create',
+                'role/create',
                 $context
             );
         }
 
-        /** @var Permission $permission */
-        $permission = $this->permissionRepository->create([
-           'code' => $formParam->getCode(),
+        /** @var Role $role */
+        $role = $this->roleRepository->create([
+           'name' => $formParam->getName(),
         'description' => $formParam->getDescription(),
-        'depend' => $formParam->getDepend(),
         ]);
 
+        $permissionsId = $formParam->getPermissions();
+        if (count($permissionsId) > 0) {
+            $selectedPermissions = $this->permissionRepository->findAll(...$permissionsId);
+            $role->setPermissions($selectedPermissions);
+        }
+
         try {
-            $this->permissionRepository->save($permission);
+            $this->roleRepository->save($role);
 
             $this->flash->setSuccess($this->lang->tr('Data successfully created'));
 
             return new RedirectResponse(
-                $this->routeHelper->generateUrl('permission_list')
+                $this->routeHelper->generateUrl('role_list')
             );
         } catch (Exception $ex) {
             $this->logger->error('Error when saved the data {error}', ['error' => $ex->getMessage()]);
@@ -238,7 +263,7 @@ class PermissionAction
 
             return new TemplateResponse(
                 $this->template,
-                'permission/create',
+                'role/create',
                 $context
             );
         }
@@ -256,18 +281,21 @@ class PermissionAction
 
         $id = (int) $request->getAttribute('id');
 
-        /** @var Permission|null $permission */
-        $permission = $this->permissionRepository->find($id);
+        /** @var Role|null $role */
+        $role = $this->roleRepository->find($id);
 
-        if ($permission === null) {
+        if ($role === null) {
             $this->flash->setError($this->lang->tr('This record doesn\'t exist'));
 
             return new RedirectResponse(
-                $this->routeHelper->generateUrl('permission_list')
+                $this->routeHelper->generateUrl('role_list')
             );
         }
-        $context['permission'] = $permission;
-        $context['param'] = (new PermissionParam())->fromEntity($permission);
+        $context['role'] = $role;
+        $context['param'] = (new RoleParam())->fromEntity($role);
+
+        $currentPermissionsId = Arr::getColumn($role->permissions, 'id');
+        $context['param']->setPermissions($currentPermissionsId);
 
         $permissions = $this->permissionRepository->orderBy('code')
                                                   ->all();
@@ -277,26 +305,26 @@ class PermissionAction
         if ($request->getMethod() === 'GET') {
             return new TemplateResponse(
                 $this->template,
-                'permission/update',
+                'role/update',
                 $context
             );
         }
-        $formParam = new PermissionParam($param->posts());
+        $formParam = new RoleParam($param->posts());
         $context['param'] = $formParam;
 
-        $validator = new PermissionValidator($formParam, $this->lang);
+        $validator = new RoleValidator($formParam, $this->lang);
         if ($validator->validate() === false) {
             $context['errors'] = $validator->getErrors();
 
             return new TemplateResponse(
                 $this->template,
-                'permission/update',
+                'role/update',
                 $context
             );
         }
 
-        $entityExist = $this->permissionRepository->findBy([
-                                               'code' => $formParam->getCode(),
+        $entityExist = $this->roleRepository->findBy([
+                                               'name' => $formParam->getName(),
                                            ]);
 
         if ($entityExist !== null && $entityExist->id !== $id) {
@@ -304,22 +332,37 @@ class PermissionAction
 
             return new TemplateResponse(
                 $this->template,
-                'permission/update',
+                'role/update',
                 $context
             );
         }
 
-        $permission->code = $formParam->getCode();
-        $permission->description = $formParam->getDescription();
-        $permission->depend = $formParam->getDepend();
+        $role->name = $formParam->getName();
+        $role->description = $formParam->getDescription();
+
+        $permissionsId = $formParam->getPermissions();
+
+        //Delete Handle
+        $permissionsIdToDelete = array_diff($currentPermissionsId, $permissionsId);
+        if (count($permissionsIdToDelete) > 0) {
+            $deletedPermissions = $this->permissionRepository->findAll(...$permissionsIdToDelete);
+            $role->removePermissions($deletedPermissions);
+        }
+
+        //New Handle
+        $permissionsIdToAdd = array_diff($permissionsId, $currentPermissionsId);
+        if (count($permissionsIdToAdd) > 0) {
+            $addedPermissions = $this->permissionRepository->findAll(...$permissionsIdToAdd);
+            $role->setPermissions($addedPermissions);
+        }
 
         try {
-            $this->permissionRepository->save($permission);
+            $this->roleRepository->save($role);
 
             $this->flash->setSuccess($this->lang->tr('Data successfully updated'));
 
             return new RedirectResponse(
-                $this->routeHelper->generateUrl('permission_detail', ['id' => $id])
+                $this->routeHelper->generateUrl('role_detail', ['id' => $id])
             );
         } catch (Exception $ex) {
             $this->logger->error('Error when saved the data {error}', ['error' => $ex->getMessage()]);
@@ -328,7 +371,7 @@ class PermissionAction
 
             return new TemplateResponse(
                 $this->template,
-                'permission/update',
+                'role/update',
                 $context
             );
         }
@@ -343,24 +386,24 @@ class PermissionAction
     {
         $id = (int) $request->getAttribute('id');
 
-        /** @var Permission|null $permission */
-        $permission = $this->permissionRepository->find($id);
+        /** @var Role|null $role */
+        $role = $this->roleRepository->find($id);
 
-        if ($permission === null) {
+        if ($role === null) {
             $this->flash->setError($this->lang->tr('This record doesn\'t exist'));
 
             return new RedirectResponse(
-                $this->routeHelper->generateUrl('permission_list')
+                $this->routeHelper->generateUrl('role_list')
             );
         }
 
         try {
-            $this->permissionRepository->delete($permission);
+            $this->roleRepository->delete($role);
 
             $this->flash->setSuccess($this->lang->tr('Data successfully deleted'));
 
             return new RedirectResponse(
-                $this->routeHelper->generateUrl('permission_list')
+                $this->routeHelper->generateUrl('role_list')
             );
         } catch (Exception $ex) {
             $this->logger->error('Error when delete the data {error}', ['error' => $ex->getMessage()]);
@@ -368,7 +411,7 @@ class PermissionAction
             $this->flash->setError($this->lang->tr('Data processing error'));
 
             return new RedirectResponse(
-                $this->routeHelper->generateUrl('permission_list')
+                $this->routeHelper->generateUrl('role_list')
             );
         }
     }

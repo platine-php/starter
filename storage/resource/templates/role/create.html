@@ -1,0 +1,75 @@
+{% extends "main" %}
+{% block body %}
+    <div class="row justify-content-center align-items-center">
+        <div class="col-md-10">
+            <div class="card">
+                <div class="card-header bg-primary font-weight-bold">
+                    Role registration
+                </div>
+                <div class="card-body">
+                    <form action="" method="post">
+                        {% csrf %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label for="name" class="col-md-3 col-form-label">
+                                        Name: <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-9">
+                                        <input 
+                                            type="text" 
+                                            name="name" 
+                                            value="{{ param.name }}" 
+                                            required="true" 
+                                            placeholder="Enter name"
+                                            class="form-control form-control-sm"
+                                        />
+                                        <span class="ferror">{{ errors.name }}</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group row mb-2">
+                                    <label for="description" class="col-md-3 col-form-label">
+                                        Description:
+                                    </label>
+                                    <div class="col-md-9">
+                                        <textarea 
+                                            name="description" 
+                                            placeholder="Enter description"
+                                            class="form-control form-control-sm">{{ param.description }}</textarea>
+                                        <span class="ferror">{{ errors.description }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <ul class="list-group overflow-scroll" style="max-height: 200px;">
+                                    {% for p in permissions %}
+                                        <li class="list-group-item">
+                                          <input 
+                                              class="form-check-input me-1 role-permission list-action" 
+                                              type="checkbox" 
+                                              name="permissions[]"
+                                              data-depend="{{ p.depend }}"
+                                              id="{{ p.code }}"
+                                              value="{{ p.id }}"
+                                              {% if param.permissions contains p.id %}checked{% endif %}
+                                           />
+                                          {{ p.description }}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="offset-1 col pr-2">
+                                <button type="submit" class="btn btn-sm btn-primary">Save</button>
+                                <a href="{% route_url role_list %}" class="btn btn-sm btn-dark">Cancel</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

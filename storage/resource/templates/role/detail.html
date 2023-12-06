@@ -1,0 +1,169 @@
+{% extends "main" %}
+{% block body %}
+<div class="card mb-4">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-header">
+                    <h2 class="pageheader-title">Détail [{{ role.name }}]</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class='row'>
+            <div class='col-md-7'>
+                <div class='table-responsive'>
+                    <table class="detail table table-sm table-bordered">
+                        <tr>
+                            <td>ID</td>
+                            <td><b>{{ role.id }}</b></td>
+                        </tr>
+                        <tr>
+                            <td>Name</td>
+                            <td><b>{{ role.name }}</b></td>
+                        </tr>
+                        <tr>
+                            <td>Description</td>
+                            <td><b>{{ role.description }}</b></td>
+                        </tr>
+                        <tr>
+                            <td>Created at</td>
+                            <td><b>{{ role.created_at|date:"Y-m-d H:i:s" }}</b></td>
+                        </tr>
+                        <tr>
+                            <td>Updated at</td>
+                            <td><b>{{ role.updated_at|date:"Y-m-d H:i:s" }}</b></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class='col-md-5'>
+                <p class="text-center">
+                    {% permission role_list %}
+                        <a href="{% route_url role_list %}" class="btn btn-sm btn-dark">
+                            <i class="fa fw fa-th"></i> Roles
+                        </a>
+                    {% endpermission %}
+                    
+                    {% permission role_create %}
+                        <a href="{% route_url role_create %}" class="btn btn-sm btn-success">
+                            <i class="fa fw fa-plus-circle"></i> Create
+                        </a>
+                    {% endpermission %}
+                    
+                    {% permission role_update %}
+                        <a href="{% route_url role_update id:role.id %}" class="btn btn-sm btn-primary">
+                            <i class="fa fw fa-edit"></i> Edit
+                        </a>
+                    {% endpermission %}
+                    
+                    {% permission role_delete %}
+                        <a href="{% route_url role_delete id:role.id %}?{% csrf query:1 %}" data-text-confirm="Are you sure you want to delete this element ?" class="btn btn-sm btn-danger">
+                            <i class="fa fw fa-trash"></i> Delete
+                        </a>
+                    {% endpermission %}
+                </p>
+            </div>
+            <div class="col-md-12">
+                <hr />
+                <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="users-tab" data-bs-toggle="tab" href="#users-content" role="tab" aria-controls="users" aria-selected="false">Users <b class="badge bg-dark">{{ role.users.size }}</b></a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" id="permissions-tab" data-bs-toggle="tab" href="#permissions-content" role="tab" aria-controls="permissions" aria-selected="false">Permissions <b class="badge bg-dark">{{ role.permissions.size }}</b></a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <!-- tab start -->
+                    <div class="tab-pane show fade active" id="users-content" role="tabpanel" aria-labelledby="users-tab">
+                        {% if role.users.size > 0 %}
+                            <div class="table-responsive">
+                                <table class="table table-hover table-sm table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Username</th>
+                                            <th>Lastname</th>
+                                            <th>Firstname</th>
+                                            <th>E-mail</th>
+                                            <th>Status</th>
+                                            <th>Created at</th>
+                                            <th>Updated at</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for u in role.users %}
+                                            <tr>
+                                                <td>{{ u.username }}</td>
+                                                <td>{{ u.lastname }}</td>
+                                                <td>{{ u.firstname }}</td>
+                                                <td>{{ u.email }}</td>
+                                                <td>{{ user_status[u.status] }}</td>
+                                                <td>{{ u.created_at|date:"Y-m-d H:i:s" }}</td>
+                                                <td>{{ u.updated_at|date:"Y-m-d H:i:s" }}</td>
+                                                <td  class="actions">
+                                                    {% permission user_detail %}
+                                                        <a href="{% route_url user_detail id:u.id %}" class="btn btn-xs btn-icon btn-pill btn-dark">
+                                                            <i class="fa fa-fw fa-eye"></i>
+                                                        </a>
+                                                    {% endpermission %}
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        {% else %}
+                            <p class="alert alert-info">No users for this role</p>
+                        {% endif %}
+                    </div>
+                    <!-- tab end -->
+                    
+                    <!-- tab start -->
+                    <div class="tab-pane fade" id="permissions-content" role="tabpanel" aria-labelledby="permissions-tab">
+                        {% if role.permissions.size > 0 %}
+                            <div class="table-responsive">
+                                <table class="table table-hover table-sm table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Code</th>
+                                            <th>Description</th>
+                                            <th>Parent</th>
+                                            <th>Created at</th>
+                                            <th>Updated at</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for u in role.permissions %}
+                                            <tr>
+                                                <td>{{ u.code }}</td>
+                                                <td>{{ u.description }}</td>
+                                                <td>{{ u.depend }}</td>
+                                                <td>{{ u.created_at|date:"Y-m-d H:i:s" }}</td>
+                                                <td>{{ u.updated_at|date:"Y-m-d H:i:s" }}</td>
+                                                <td  class="actions">
+                                                    {% permission permission_detail %}
+                                                        <a href="{% route_url permission_detail id:u.id %}" class="btn btn-xs btn-icon btn-pill btn-dark">
+                                                            <i class="fa fa-fw fa-eye"></i>
+                                                        </a>
+                                                    {% endpermission %}
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        {% else %}
+                            <p class="alert alert-info">No users for this role</p>
+                        {% endif %}
+                    </div>
+                    <!-- tab end -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}<!-- end block body -->

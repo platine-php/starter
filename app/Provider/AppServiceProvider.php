@@ -47,6 +47,7 @@ declare(strict_types=1);
 
 namespace Platine\App\Provider;
 
+use Platine\App\Helper\StatusList;
 use Platine\App\Http\Action\HomeAction;
 use Platine\Framework\Helper\Flash;
 use Platine\Framework\Service\ServiceProvider;
@@ -64,5 +65,6 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(HomeAction::class);
         $this->app->bind(Flash::class);
+        $this->app->bind(StatusList::class);
     }
 }

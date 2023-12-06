@@ -2,7 +2,7 @@
 
     return [
         'csrf' => [
-            'key' => 'csrf_key',
+            'key' => '_token',
             'expire' => 600,
             'http_methods' => ['POST', 'PUT', 'PATCH', 'DELETE'],
             'url_whitelist' => []

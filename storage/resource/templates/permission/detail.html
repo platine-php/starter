@@ -62,7 +62,7 @@
                     {% endpermission %}
                     
                     {% permission permission_delete %}
-                        <a href="{% route_url permission_delete id:permission.id %}" data-text-confirm="Are you sure you want to delete this element ?" class="btn btn-sm btn-danger">
+                        <a href="{% route_url permission_delete id:permission.id %}?{% csrf query:1 %}" data-text-confirm="Are you sure you want to delete this element ?" class="btn btn-sm btn-danger">
                             <i class="fa fw fa-trash"></i> Delete
                         </a>
                     {% endpermission %}
@@ -72,7 +72,7 @@
                 <hr />
                 <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="roles-tab" data-bs-toggle="tab" href="#roles-content" role="tab" aria-controls="roles" aria-selected="false">Roles <b class="badge badge-dark">{{ permission.roles.size }}</b></a>
+                        <a class="nav-link active" id="roles-tab" data-bs-toggle="tab" href="#roles-content" role="tab" aria-controls="roles" aria-selected="false">Roles <b class="badge bg-dark">{{ permission.roles.size }}</b></a>
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">

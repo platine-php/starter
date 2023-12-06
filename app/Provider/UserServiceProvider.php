@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Platine\App\Provider;
 
+use Platine\App\Http\Action\Permission\PermissionAction;
+use Platine\App\Http\Action\Role\RoleAction;
 use Platine\App\Http\Action\User\AuthAction;
 use Platine\App\Http\Action\User\LogoutAction;
 use Platine\Framework\Service\ServiceProvider;
@@ -20,8 +22,15 @@ class UserServiceProvider extends ServiceProvider
     */
     public function register(): void
     {
+        // User
         $this->app->bind(AuthAction::class);
         $this->app->bind(LogoutAction::class);
+
+        // Permission
+        $this->app->bind(PermissionAction::class);
+
+        // Role
+        $this->app->bind(RoleAction::class);
     }
 
 
@@ -34,5 +43,8 @@ class UserServiceProvider extends ServiceProvider
             $router->add('/login', AuthAction::class, ['GET', 'POST'], 'user_login');
             $router->get('/logout', LogoutAction::class, 'user_logout');
         });
+
+        $router->resource('/permission', PermissionAction::class, 'permission');
+        $router->resource('/role', RoleAction::class, 'role');
     }
 }

@@ -21,8 +21,15 @@ It is a modular application, and some modules are installed by default. It will 
 
 ### Installation
 Follow the steps mentioned below to install and run the project. 
-1. Create project `composer create-project platine-php/starter`
-2. Create `.env` file by copying the `.env.example`. You may use the command to do that `cp .env.example .env`
+1. Create project
+```bash
+composer create-project platine-php/starter
+```
+2. Create `.env` file by copying the `.env.example`. You may use the command to do that 
+```bash
+cp .env.example .env
+```
+3. Update the database credentials, application URL and others information in `.env` file.
 ```ini
 # Application
 PL_APP_URL=http://localhost/starter/public/
@@ -35,11 +42,16 @@ PL_DB_PORT=3306
 PL_DB_USER=root
 PL_DB_PASSWORD=
 ```
-
-3. Update the database credentials, application URL and others information in `.env` file.
-4. Run the command to execute migration `php platine migration:init` and `php platine migration:migrate`
-5. Run the command `php platine seed:exec` to insert demo data (Note the order to choose is `1,2,3,5,7,4,6`)
-6. You may create a virtualhost entry to access the application or run `php platine server` from the project root and visit `http://127.0.0.1:8080`
+4. Run the command to execute migration 
+```bash
+php platine migration:init
+php platine migration:migrate
+```
+5. Run the command to insert demo data (Note the order to choose is `1,2,3,5,7,4,6`)
+```bash
+php platine seed:exec
+```
+6. You may create a virtualhost entry to access the application or run `php platine server` from the project root and visit `http://127.0.0.1:8080`.
 
 ### Demo
 Use the following account credentials to access the application backend:

@@ -30,6 +30,13 @@
                                 <i data-feather="home" class="nav-icon icon-xs me-2"></i>  Dashboard
                             </a>
                         </li>
+                        {% permission product_list %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% route_url product_list %}">
+                                    <i data-feather="shopping-bag" class="nav-icon icon-xs me-2"></i>  Products
+                                </a>
+                            </li>
+                        {% endpermission %}
                         <li class="nav-item">
                            <a class="nav-link has-arrow collapsed" href="#!" data-bs-toggle="collapse" data-bs-target="#user" aria-expanded="false" aria-controls="navPages">
                                <i data-feather="user" class="nav-icon icon-xs me-2"></i> Users

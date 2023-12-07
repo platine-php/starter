@@ -83,6 +83,11 @@ a.navbar-brand:hover {
     width : 100%;
 }
 
+.money{
+    font-weight: bold;
+    font-size: 1.4em;
+}
+
 .ferror{
     color: red;
     text-align: justify;

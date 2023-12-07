@@ -1,0 +1,60 @@
+{% extends "main" %}
+{% block body %}
+
+<div class="card mb-4">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-header">
+                    <h2 class="pageheader-title">Product categories</h2>
+                </div>
+            </div>
+        </div>
+        <p class="text-right">
+            {% permission product_category_create %}
+                <a href="{% route_url product_category_create %}" class="btn btn-sm btn-success">
+                    <i class="fa fw fa-plus-circle"></i> Create
+                </a>
+            {% endpermission %}
+        </p>
+        {% if list.size > 0 %}
+            <div class="table-responsive">
+                <table class="table table-hover table-sm table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Created at</th>
+                            <th>Updated at</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for u in list %}
+                            <tr>
+                                <td>{{ u.name }}</td>
+                                <td>{{ u.description }}</td>
+                                <td>{{ u.created_at|date:"Y-m-d H:i:s" }}</td>
+                                <td>{{ u.updated_at|date:"Y-m-d H:i:s" }}</td>
+                                <td  class="actions">
+                                    {% permission product_category_detail %}
+                                        <a href="{% route_url product_category_detail id:u.id %}" class="btn btn-xs btn-icon btn-pill btn-dark">
+                                            <i class="fa fa-fw fa-eye"></i>
+                                        </a>
+                                    {% endpermission %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <br />
+            <div class="text-center">
+                {{ pagination|raw }}
+            </div>
+        {% else %}
+            <p class="alert alert-info">No data available to display</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}<!-- end block body -->

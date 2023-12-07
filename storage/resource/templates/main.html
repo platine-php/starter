@@ -48,6 +48,18 @@
                                </ul>
                            </div>
                         </li>
+                        <li class="nav-item">
+                           <a class="nav-link has-arrow collapsed" href="#!" data-bs-toggle="collapse" data-bs-target="#config" aria-expanded="false" aria-controls="navPages">
+                               <i data-feather="settings" class="nav-icon icon-xs me-2"></i> Configuration
+                           </a>
+                           <div id="config" class="collapse" data-bs-parent="#sideNavbar">
+                               <ul class="nav flex-column">
+                                   {% permission product_category_list %}
+                                        <li class="nav-item"><a class="nav-link" href="{% route_url product_category_list %}">Product categories</a></li>
+                                   {% endpermission %}
+                               </ul>
+                           </div>
+                        </li>
                     </ul>
                 </div>
             </nav>

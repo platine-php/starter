@@ -1,0 +1,70 @@
+{% extends "main" %}
+{% block body %}
+<div class="card mb-4">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-header">
+                    <h2 class="pageheader-title">Détail [{{ category.name }}]</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class='row'>
+            <div class='col-md-7'>
+                <div class='table-responsive'>
+                    <table class="detail table table-sm table-bordered">
+                        <tr>
+                            <td>ID</td>
+                            <td><b>{{ category.id }}</b></td>
+                        </tr>
+                        <tr>
+                            <td>Name</td>
+                            <td><b>{{ category.name }}</b></td>
+                        </tr>
+                        <tr>
+                            <td>Description</td>
+                            <td><b>{{ category.description }}</b></td>
+                        </tr>
+                        <tr>
+                            <td>Created at</td>
+                            <td><b>{{ category.created_at|date:"Y-m-d H:i:s" }}</b></td>
+                        </tr>
+                        <tr>
+                            <td>Updated at</td>
+                            <td><b>{{ category.updated_at|date:"Y-m-d H:i:s" }}</b></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class='col-md-5'>
+                <p class="text-center">
+                    {% permission product_category_list %}
+                        <a href="{% route_url product_category_list %}" class="btn btn-sm btn-dark">
+                            <i class="fa fw fa-th"></i> Categories
+                        </a>
+                    {% endpermission %}
+                    
+                    {% permission product_category_create %}
+                        <a href="{% route_url product_category_create %}" class="btn btn-sm btn-success">
+                            <i class="fa fw fa-plus-circle"></i> Create
+                        </a>
+                    {% endpermission %}
+                    
+                    {% permission product_category_update %}
+                        <a href="{% route_url product_category_update id:category.id %}" class="btn btn-sm btn-primary">
+                            <i class="fa fw fa-edit"></i> Edit
+                        </a>
+                    {% endpermission %}
+                    
+                    {% permission product_category_delete %}
+                        <a href="{% route_url product_category_delete id:category.id %}?{% csrf query:1 %}" data-text-confirm="Are you sure you want to delete this element ?" class="btn btn-sm btn-danger">
+                            <i class="fa fw fa-trash"></i> Delete
+                        </a>
+                    {% endpermission %}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}<!-- end block body -->

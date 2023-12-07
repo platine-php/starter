@@ -1,0 +1,57 @@
+{% extends "main" %}
+{% block body %}
+    <div class="row justify-content-center align-items-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-primary font-weight-bold">
+                    Product category registration
+                </div>
+                <div class="card-body">
+                    <form action="" method="post">
+                        {% csrf %}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <label for="name" class="col-md-3 col-form-label">
+                                        Name: <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-9">
+                                        <input 
+                                            type="text" 
+                                            name="name" 
+                                            value="{{ param.name }}" 
+                                            required="true" 
+                                            placeholder="Enter name"
+                                            class="form-control form-control-sm"
+                                        />
+                                        <span class="ferror">{{ errors.name }}</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group row mb-2">
+                                    <label for="description" class="col-md-3 col-form-label">
+                                        Description: 
+                                    </label>
+                                    <div class="col-md-9">
+                                        <textarea 
+                                            name="description" 
+                                            placeholder="Enter description"
+                                            class="form-control form-control-sm">{{ param.description }}</textarea>
+                                        <span class="ferror">{{ errors.description }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="offset-1 col pr-2">
+                                <button type="submit" class="btn btn-sm btn-primary">Save</button>
+                                <a href="{% route_url product_category_list %}" class="btn btn-sm btn-dark">Cancel</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

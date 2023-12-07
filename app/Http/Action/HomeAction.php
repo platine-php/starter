@@ -47,6 +47,12 @@ declare(strict_types=1);
 
 namespace Platine\App\Http\Action;
 
+use Platine\App\Helper\StatusList;
+use Platine\App\Model\Repository\ProductCategoryRepository;
+use Platine\App\Model\Repository\ProductRepository;
+use Platine\Database\Query\Expression;
+use Platine\Framework\Auth\Repository\RoleRepository;
+use Platine\Framework\Auth\Repository\UserRepository;
 use Platine\Framework\Http\Response\TemplateResponse;
 use Platine\Http\Handler\RequestHandlerInterface;
 use Platine\Http\ResponseInterface;
@@ -66,11 +72,57 @@ class HomeAction implements RequestHandlerInterface
     protected Template $template;
 
     /**
+    * The ProductCategoryRepository instance
+    * @var ProductCategoryRepository
+    */
+    protected ProductCategoryRepository $productCategoryRepository;
+
+    /**
+    * The ProductRepository instance
+    * @var ProductRepository
+    */
+    protected ProductRepository $productRepository;
+
+    /**
+    * The RoleRepository instance
+    * @var RoleRepository
+    */
+    protected RoleRepository $roleRepository;
+
+    /**
+    * The UserRepository instance
+    * @var UserRepository
+    */
+    protected UserRepository $userRepository;
+
+    /**
+    * The StatusList instance
+    * @var StatusList
+    */
+    protected StatusList $statusList;
+
+    /**
      * Create new instance
      * @param Template $template
+     * @param ProductCategoryRepository $productCategoryRepository
+     * @param ProductRepository $productRepository
+     * @param RoleRepository $roleRepository
+     * @param UserRepository $userRepository
+     * @param StatusList $statusList
      */
-    public function __construct(Template $template)
-    {
+    public function __construct(
+        Template $template,
+        ProductCategoryRepository $productCategoryRepository,
+        ProductRepository $productRepository,
+        RoleRepository $roleRepository,
+        UserRepository $userRepository,
+        StatusList $statusList
+    ) {
+        $this->productRepository = $productRepository;
+        $this->productCategoryRepository = $productCategoryRepository;
+        $this->roleRepository = $roleRepository;
+        $this->userRepository = $userRepository;
+        $this->statusList = $statusList;
         $this->template = $template;
     }
 
@@ -79,12 +131,44 @@ class HomeAction implements RequestHandlerInterface
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $data = [];
+        $context = [];
+        $context['user_status'] = $this->statusList->getUserStatus();
+        $context['total_user'] = $this->userRepository->query()
+                                                      ->count('id');
+
+        $context['total_role'] = $this->roleRepository->query()
+                                                      ->count('id');
+
+        $context['total_product_category'] = $this->productCategoryRepository->query()
+                                                                            ->count('id');
+
+        $context['total_product'] = $this->productRepository->query()
+                                                            ->count('id');
+
+        $context['users'] = $this->userRepository->query()
+                                                ->offset(0)
+                                                ->limit(5)
+                                                ->orderBy('created_at', 'DESC')
+                                                ->all();
+
+        $context['products'] = $this->productRepository->query()
+                                                        ->with('category')
+                                                        ->offset(0)
+                                                        ->limit(5)
+                                                        ->orderBy('created_at', 'DESC')
+                                                        ->all();
+
+        $context['product_amounts'] = $this->productRepository->query()
+                                                            ->sum(function (Expression $e) {
+                                                                $e->column('price')
+                                                                  ->op('*')
+                                                                  ->column('quantity');
+                                                            });
 
         return new TemplateResponse(
             $this->template,
             'home',
-            $data
+            $context
         );
     }
 }

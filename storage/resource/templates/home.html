@@ -29,7 +29,7 @@
                         </div>
                         <!-- project number -->
                         <div>
-                            <h1 class="fw-bold">{{ 0 }}</h1>
+                            <h1 class="fw-bold">{{ total_product }}</h1>
                         </div>
                     </div>
                 </div>
@@ -50,7 +50,7 @@
                         </div>
                         <!-- project number -->
                         <div>
-                            <h1 class="fw-bold">{{ 34 }}</h1>
+                            <h1 class="fw-bold">{{ total_product_category }}</h1>
                         </div>
                     </div>
                 </div>
@@ -71,7 +71,7 @@
                         </div>
                         <!-- project number -->
                         <div>
-                            <h1 class="fw-bold">{{ 53 }}</h1>
+                            <h1 class="fw-bold">{{ total_user }}</h1>
                         </div>
                     </div>
                 </div>
@@ -92,7 +92,131 @@
                         </div>
                         <!-- project number -->
                         <div>
-                            <h1 class="fw-bold">{{ 43 }}</h1>
+                            <h1 class="fw-bold">{{ total_role }}</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-6">
+            <div class="col-md-12">
+                <!-- card  -->
+                <div class="card">
+                    <!-- card header  -->
+                    <div class="card-header bg-white py-4">
+                        <h4 class="mb-0">Products</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="mb-0">Latest products</h5>
+                                    </div>
+                                    <div class="card-body p-0">
+                                        {% if products.size > 0 %}
+                                            <div class="table-responsive">
+                                                <table class="table table-sm">
+                                                    <thead class="bg-light">
+                                                       <tr>
+                                                            <th>Name</th>
+                                                            <th>Price</th>
+                                                            <th>Quantity</th>
+                                                            <th>Total</th>
+                                                            <th>Category</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {% for u in products %}
+                                                            <tr>
+                                                                <td>{{ u.name }}</td>
+                                                                <td><b class="money">${{ u.price|format:2 }}</b></td>
+                                                                <td><b class="money">{{ u.quantity|format:2 }}</b></td>
+                                                                <td><b class="money">${{ u.quantity|times:u.price|format:2 }}</b></td>
+                                                                <td>{{ u.category.name }}</td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        {% else %}
+                                            <p class="alert alert-info">No data available to display</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-body p-0">
+                                        <div class="table-responsive">
+                                            <table class="table table-sm">
+                                                <tbody>
+                                                    <tr>
+                                                        <td><b>TOTAL PRODUCTS AMOUNT</b></td>
+                                                        <td><b class="money">${{ product_amounts|format:2 }}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-6">
+            <div class="col-md-12">
+                <!-- card  -->
+                <div class="card">
+                    <!-- card header  -->
+                    <div class="card-header bg-white py-4">
+                        <h4 class="mb-0">Users</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="mb-0">Latest users</h5>
+                                    </div>
+                                    <div class="card-body p-0">
+                                        {% if users.size > 0 %}
+                                            <div class="table-responsive">
+                                                <table class="table table-sm">
+                                                    <thead class="bg-light">
+                                                       <tr>
+                                                            <th>Username</th>
+                                                            <th>Lastname</th>
+                                                            <th>Firstname</th>
+                                                            <th>E-mail</th>
+                                                            <th>Status</th>
+                                                            <th>Created at</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {% for u in users %}
+                                                            <tr>
+                                                                <td>{{ u.username }}</td>
+                                                                <td>{{ u.lastname }}</td>
+                                                                <td>{{ u.firstname }}</td>
+                                                                <td>{{ u.email }}</td>
+                                                                <td>{{ user_status[u.status] }}</td>
+                                                                <td>{{ u.created_at|date:"Y-m-d H:i:s" }}</td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        {% else %}
+                                            <p class="alert alert-info">No data available to display</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -29,7 +29,7 @@ composer create-project platine-php/starter
 ```bash
 cp .env.example .env
 ```
-3. Update the database credentials, application URL and others information in `.env` file.
+3. Update the database, application URL and others information in `.env` file.
 ```ini
 # Application
 PL_APP_URL=http://localhost/starter/public/

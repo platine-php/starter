@@ -1,1 +1,2 @@
 /composer.lock -merge
+*.html linguist-detectable=false

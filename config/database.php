@@ -2,7 +2,8 @@
 
     return [
         'default' => env('PL_DB_DRIVER', 'mysql'),
-
+        'slow_query_time' => env('PL_DB_SLOW_QUERY_TIME', 1.0, 'float'), // in second
+        
         'connections' => [
             'mysql' => [
                 'driver' => 'mysql',

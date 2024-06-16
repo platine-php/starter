@@ -5,7 +5,7 @@ namespace Platine\Framework\Migration\Seed;
 
 use Platine\Framework\Migration\Seed\AbstractSeed;
 
-class ProductCategoriesSeed extends AbstractSeed
+class ProductCategoriesSeed20240616000001 extends AbstractSeed
 {
 
     public function run(): void

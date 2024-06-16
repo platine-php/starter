@@ -5,7 +5,7 @@ namespace Platine\Framework\Migration\Seed;
 
 use Platine\Framework\Migration\Seed\AbstractSeed;
 
-class RolesPermissionsSeed extends AbstractSeed
+class RolesPermissionsSeed20240616000004 extends AbstractSeed
 {
 
     public function run(): void

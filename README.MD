@@ -47,7 +47,7 @@ PL_DB_PASSWORD=
 php platine migration:init
 php platine migration:migrate
 ```
-5. Run the command to insert demo data (Note the order to choose is `1,2,3,5,7,4,6`)
+5. Run the command to insert demo data
 ```bash
 php platine seed:exec
 ```

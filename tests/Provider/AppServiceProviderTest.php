@@ -18,8 +18,8 @@ class AppServiceProviderTest extends PlatineTestCase
     {
         $app = $this->getMockInstanceMap(Application::class);
 
-        $app->expects($this->exactly(3))
-                ->method('bind');
+        $this->expectMethodCallCount($app, 'bind', 3);
+
         $o = new AppServiceProvider($app);
         $o->register();
     }

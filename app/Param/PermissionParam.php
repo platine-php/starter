@@ -27,13 +27,6 @@ class PermissionParam extends BaseParam
     protected string $description;
 
     /**
-    * The depend field
-    * @var string|null
-    */
-    protected ?string $depend = null;
-
-
-    /**
     * @param TEntity $entity
     * @return $this
     */
@@ -41,7 +34,6 @@ class PermissionParam extends BaseParam
     {
         $this->code = $entity->code;
         $this->description = $entity->description;
-        $this->depend = $entity->depend;
 
         return $this;
     }
@@ -64,16 +56,6 @@ class PermissionParam extends BaseParam
         return $this->description;
     }
 
-   /**
-    * Return the depend value
-    * @return string|null
-    */
-    public function getDepend(): ?string
-    {
-        return $this->depend;
-    }
-
-
     /**
     * Set the code value
     * @param string $code
@@ -94,18 +76,6 @@ class PermissionParam extends BaseParam
     public function setDescription(string $description): self
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-   /**
-    * Set the depend value
-    * @param string|null $depend
-    * @return $this
-    */
-    public function setDepend(?string $depend): self
-    {
-        $this->depend = $depend;
 
         return $this;
     }

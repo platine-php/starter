@@ -31,60 +31,6 @@ use Platine\Template\Template;
 class RoleAction
 {
     /**
-    * The Lang instance
-    * @var Lang
-    */
-    protected Lang $lang;
-
-    /**
-    * The Pagination instance
-    * @var Pagination
-    */
-    protected Pagination $pagination;
-
-    /**
-    * The Template instance
-    * @var Template
-    */
-    protected Template $template;
-
-    /**
-    * The Flash instance
-    * @var Flash
-    */
-    protected Flash $flash;
-
-    /**
-    * The RouteHelper instance
-    * @var RouteHelper
-    */
-    protected RouteHelper $routeHelper;
-
-    /**
-    * The LoggerInterface instance
-    * @var LoggerInterface
-    */
-    protected LoggerInterface $logger;
-
-    /**
-    * The PermissionRepository instance
-    * @var PermissionRepository
-    */
-    protected PermissionRepository $permissionRepository;
-
-    /**
-    * The RoleRepository instance
-    * @var RoleRepository
-    */
-    protected RoleRepository $roleRepository;
-
-    /**
-    * The StatusList instance
-    * @var StatusList
-    */
-    protected StatusList $statusList;
-
-    /**
     * Create new instance
     * @param Lang $lang
     * @param Pagination $pagination
@@ -97,25 +43,16 @@ class RoleAction
     * @param StatusList $statusList
     */
     public function __construct(
-        Lang $lang,
-        Pagination $pagination,
-        Template $template,
-        Flash $flash,
-        RouteHelper $routeHelper,
-        LoggerInterface $logger,
-        PermissionRepository $permissionRepository,
-        RoleRepository $roleRepository,
-        StatusList $statusList
+        protected Lang $lang,
+        protected Pagination $pagination,
+        protected Template $template,
+        protected Flash $flash,
+        protected RouteHelper $routeHelper,
+        protected LoggerInterface $logger,
+        protected PermissionRepository $permissionRepository,
+        protected RoleRepository $roleRepository,
+        protected StatusList $statusList
     ) {
-        $this->lang = $lang;
-        $this->pagination = $pagination;
-        $this->template = $template;
-        $this->flash = $flash;
-        $this->routeHelper = $routeHelper;
-        $this->logger = $logger;
-        $this->permissionRepository = $permissionRepository;
-        $this->roleRepository = $roleRepository;
-        $this->statusList = $statusList;
     }
 
     /**

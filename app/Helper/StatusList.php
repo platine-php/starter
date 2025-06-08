@@ -14,18 +14,11 @@ use Platine\Lang\Lang;
 class StatusList
 {
     /**
-    * The Language instance
-    * @var Lang
-    */
-    protected Lang $lang;
-
-    /**
      * Create new instance
      * @param Lang $lang
      */
-    public function __construct(Lang $lang)
+    public function __construct(protected Lang $lang)
     {
-        $this->lang = $lang;
     }
 
     /**

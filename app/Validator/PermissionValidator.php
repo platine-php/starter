@@ -43,7 +43,6 @@ class PermissionValidator extends AbstractValidator
     {
         $this->addData('code', $this->param->getCode());
         $this->addData('description', $this->param->getDescription());
-        $this->addData('depend', $this->param->getDepend());
     }
 
     /**
@@ -62,11 +61,6 @@ class PermissionValidator extends AbstractValidator
             new NotEmpty(),
             new MinLength(2),
             new MaxLength(100),
-        ]);
-
-        $this->addRules('depend', [
-            new MinLength(2),
-            new MaxLength(20),
         ]);
     }
 }

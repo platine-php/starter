@@ -29,56 +29,6 @@ use Platine\App\Validator\ProductValidator;
 class ProductAction
 {
     /**
-    * The Lang instance
-    * @var Lang
-    */
-    protected Lang $lang;
-
-    /**
-    * The Pagination instance
-    * @var Pagination
-    */
-    protected Pagination $pagination;
-
-    /**
-    * The Template instance
-    * @var Template
-    */
-    protected Template $template;
-
-    /**
-    * The Flash instance
-    * @var Flash
-    */
-    protected Flash $flash;
-
-    /**
-    * The RouteHelper instance
-    * @var RouteHelper
-    */
-    protected RouteHelper $routeHelper;
-
-    /**
-    * The LoggerInterface instance
-    * @var LoggerInterface
-    */
-    protected LoggerInterface $logger;
-
-    /**
-    * The ProductCategoryRepository instance
-    * @var ProductCategoryRepository
-    */
-    protected ProductCategoryRepository $productCategoryRepository;
-
-    /**
-    * The ProductRepository instance
-    * @var ProductRepository
-    */
-    protected ProductRepository $productRepository;
-
-
-
-    /**
     * Create new instance
     * @param Lang $lang
     * @param Pagination $pagination
@@ -90,23 +40,15 @@ class ProductAction
     * @param ProductRepository $productRepository
     */
     public function __construct(
-        Lang $lang,
-        Pagination $pagination,
-        Template $template,
-        Flash $flash,
-        RouteHelper $routeHelper,
-        LoggerInterface $logger,
-        ProductCategoryRepository $productCategoryRepository,
-        ProductRepository $productRepository
+        protected Lang $lang,
+        protected Pagination $pagination,
+        protected Template $template,
+        protected Flash $flash,
+        protected RouteHelper $routeHelper,
+        protected LoggerInterface $logger,
+        protected ProductCategoryRepository $productCategoryRepository,
+        protected ProductRepository $productRepository
     ) {
-        $this->lang = $lang;
-        $this->pagination = $pagination;
-        $this->template = $template;
-        $this->flash = $flash;
-        $this->routeHelper = $routeHelper;
-        $this->logger = $logger;
-        $this->productCategoryRepository = $productCategoryRepository;
-        $this->productRepository = $productRepository;
     }
 
     /**

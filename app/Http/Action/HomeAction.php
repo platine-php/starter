@@ -66,42 +66,6 @@ use Platine\Template\Template;
 class HomeAction implements RequestHandlerInterface
 {
     /**
-     * The template instance
-     * @var Template
-     */
-    protected Template $template;
-
-    /**
-    * The ProductCategoryRepository instance
-    * @var ProductCategoryRepository
-    */
-    protected ProductCategoryRepository $productCategoryRepository;
-
-    /**
-    * The ProductRepository instance
-    * @var ProductRepository
-    */
-    protected ProductRepository $productRepository;
-
-    /**
-    * The RoleRepository instance
-    * @var RoleRepository
-    */
-    protected RoleRepository $roleRepository;
-
-    /**
-    * The UserRepository instance
-    * @var UserRepository
-    */
-    protected UserRepository $userRepository;
-
-    /**
-    * The StatusList instance
-    * @var StatusList
-    */
-    protected StatusList $statusList;
-
-    /**
      * Create new instance
      * @param Template $template
      * @param ProductCategoryRepository $productCategoryRepository
@@ -111,19 +75,13 @@ class HomeAction implements RequestHandlerInterface
      * @param StatusList $statusList
      */
     public function __construct(
-        Template $template,
-        ProductCategoryRepository $productCategoryRepository,
-        ProductRepository $productRepository,
-        RoleRepository $roleRepository,
-        UserRepository $userRepository,
-        StatusList $statusList
+        protected Template $template,
+        protected ProductCategoryRepository $productCategoryRepository,
+        protected ProductRepository $productRepository,
+        protected RoleRepository $roleRepository,
+        protected UserRepository $userRepository,
+        protected StatusList $statusList
     ) {
-        $this->productRepository = $productRepository;
-        $this->productCategoryRepository = $productCategoryRepository;
-        $this->roleRepository = $roleRepository;
-        $this->userRepository = $userRepository;
-        $this->statusList = $statusList;
-        $this->template = $template;
     }
 
     /**

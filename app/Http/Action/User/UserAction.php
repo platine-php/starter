@@ -33,68 +33,6 @@ use Platine\Template\Template;
 class UserAction
 {
     /**
-    * The Lang instance
-    * @var Lang
-    */
-    protected Lang $lang;
-
-    /**
-    * The Pagination instance
-    * @var Pagination
-    */
-    protected Pagination $pagination;
-
-    /**
-    * The Template instance
-    * @var Template
-    */
-    protected Template $template;
-
-    /**
-    * The Flash instance
-    * @var Flash
-    */
-    protected Flash $flash;
-
-    /**
-    * The RouteHelper instance
-    * @var RouteHelper
-    */
-    protected RouteHelper $routeHelper;
-
-    /**
-    * The LoggerInterface instance
-    * @var LoggerInterface
-    */
-    protected LoggerInterface $logger;
-
-    /**
-    * The RoleRepository instance
-    * @var RoleRepository
-    */
-    protected RoleRepository $roleRepository;
-
-    /**
-    * The StatusList instance
-    * @var StatusList
-    */
-    protected StatusList $statusList;
-
-    /**
-    * The HashInterface instance
-    * @var HashInterface
-    */
-    protected HashInterface $hash;
-
-    /**
-    * The UserRepository instance
-    * @var UserRepository
-    */
-    protected UserRepository $userRepository;
-
-
-
-    /**
     * Create new instance
     * @param Lang $lang
     * @param Pagination $pagination
@@ -108,27 +46,17 @@ class UserAction
     * @param UserRepository $userRepository
     */
     public function __construct(
-        Lang $lang,
-        Pagination $pagination,
-        Template $template,
-        Flash $flash,
-        RouteHelper $routeHelper,
-        LoggerInterface $logger,
-        RoleRepository $roleRepository,
-        StatusList $statusList,
-        HashInterface $hash,
-        UserRepository $userRepository
+        protected Lang $lang,
+        protected Pagination $pagination,
+        protected Template $template,
+        protected Flash $flash,
+        protected RouteHelper $routeHelper,
+        protected LoggerInterface $logger,
+        protected RoleRepository $roleRepository,
+        protected StatusList $statusList,
+        protected HashInterface $hash,
+        protected UserRepository $userRepository
     ) {
-        $this->lang = $lang;
-        $this->pagination = $pagination;
-        $this->template = $template;
-        $this->flash = $flash;
-        $this->routeHelper = $routeHelper;
-        $this->logger = $logger;
-        $this->roleRepository = $roleRepository;
-        $this->statusList = $statusList;
-        $this->hash = $hash;
-        $this->userRepository = $userRepository;
     }
 
     /**

@@ -1,5 +1,5 @@
 <?php
-
+    declare(strict_types=1);
 use Platine\App\Provider\AppServiceProvider;
 use Platine\App\Provider\ConsoleServiceProvider;
 use Platine\App\Provider\ProductServiceProvider;
@@ -40,7 +40,7 @@ use Platine\Framework\Service\Provider\TemplateServiceProvider;
         ConsoleServiceProvider::class,
         // SchedulerServiceProvider::class,
 
-        //Custom
+        // Application
         AppServiceProvider::class,
         UserServiceProvider::class,
         ProductServiceProvider::class,

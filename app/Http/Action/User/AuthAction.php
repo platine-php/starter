@@ -27,44 +27,6 @@ use Platine\Template\Template;
 class AuthAction implements RequestHandlerInterface
 {
     /**
-    * The AuthenticationInterface instance
-    * @var AuthenticationInterface
-    */
-    protected AuthenticationInterface $authentication;
-
-    /**
-    * The Flash instance
-    * @var Flash
-    */
-    protected Flash $flash;
-
-    /**
-    * The RouteHelper instance
-    * @var RouteHelper
-    */
-    protected RouteHelper $routeHelper;
-
-    /**
-    * The Lang instance
-    * @var Lang
-    */
-    protected Lang $lang;
-
-    /**
-    * The LoggerInterface instance
-    * @var LoggerInterface
-    */
-    protected LoggerInterface $logger;
-
-    /**
-    * The Template instance
-    * @var Template
-    */
-    protected Template $template;
-
-
-
-    /**
     * Create new instance
     * @param AuthenticationInterface $authentication
     * @param Flash $flash
@@ -74,19 +36,13 @@ class AuthAction implements RequestHandlerInterface
     * @param Template $template
     */
     public function __construct(
-        AuthenticationInterface $authentication,
-        Flash $flash,
-        RouteHelper $routeHelper,
-        Lang $lang,
-        LoggerInterface $logger,
-        Template $template
+        protected AuthenticationInterface $authentication,
+        protected Flash $flash,
+        protected RouteHelper $routeHelper,
+        protected Lang $lang,
+        protected LoggerInterface $logger,
+        protected Template $template
     ) {
-        $this->authentication = $authentication;
-        $this->flash = $flash;
-        $this->routeHelper = $routeHelper;
-        $this->lang = $lang;
-        $this->logger = $logger;
-        $this->template = $template;
     }
 
     /**

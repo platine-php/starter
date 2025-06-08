@@ -17,7 +17,7 @@ It is a modular application, and some modules are installed by default. It will 
 
 ### Requirements 
 - Any web server **(Apache, nginx, lighttp, etc.)**
-- **PHP >= 7.4**, **PHP 8** 
+- **PHP >= 8.0** 
 
 ### Installation
 Follow the steps mentioned below to install and run the project. 

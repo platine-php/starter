@@ -20,30 +20,6 @@ use Platine\Lang\Lang;
 class LogoutAction implements RequestHandlerInterface
 {
     /**
-    * The AuthenticationInterface instance
-    * @var AuthenticationInterface
-    */
-    protected AuthenticationInterface $authentication;
-
-    /**
-    * The Flash instance
-    * @var Flash
-    */
-    protected Flash $flash;
-
-    /**
-    * The RouteHelper instance
-    * @var RouteHelper
-    */
-    protected RouteHelper $routeHelper;
-
-    /**
-    * The Lang instance
-    * @var Lang
-    */
-    protected Lang $lang;
-
-    /**
     * Create new instance
     * @param AuthenticationInterface $authentication
     * @param Flash $flash
@@ -51,15 +27,11 @@ class LogoutAction implements RequestHandlerInterface
     * @param Lang $lang
     */
     public function __construct(
-        AuthenticationInterface $authentication,
-        Flash $flash,
-        RouteHelper $routeHelper,
-        Lang $lang
+        protected AuthenticationInterface $authentication,
+        protected Flash $flash,
+        protected RouteHelper $routeHelper,
+        protected Lang $lang
     ) {
-        $this->authentication = $authentication;
-        $this->flash = $flash;
-        $this->routeHelper = $routeHelper;
-        $this->lang = $lang;
     }
 
     /**

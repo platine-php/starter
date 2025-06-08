@@ -1,4 +1,5 @@
 <?php
+    declare(strict_types=1);
 
 use Platine\Framework\Auth\Middleware\AuthenticationMiddleware;
 use Platine\Framework\Auth\Middleware\AuthorizationMiddleware;

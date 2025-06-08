@@ -30,60 +30,6 @@ use Platine\Template\Template;
 class UserProfileAction
 {
     /**
-    * The Lang instance
-    * @var Lang
-    */
-    protected Lang $lang;
-
-    /**
-    * The Template instance
-    * @var Template
-    */
-    protected Template $template;
-
-    /**
-    * The Flash instance
-    * @var Flash
-    */
-    protected Flash $flash;
-
-    /**
-    * The RouteHelper instance
-    * @var RouteHelper
-    */
-    protected RouteHelper $routeHelper;
-
-    /**
-    * The LoggerInterface instance
-    * @var LoggerInterface
-    */
-    protected LoggerInterface $logger;
-
-    /**
-    * The StatusList instance
-    * @var StatusList
-    */
-    protected StatusList $statusList;
-
-    /**
-    * The HashInterface instance
-    * @var HashInterface
-    */
-    protected HashInterface $hash;
-
-    /**
-    * The UserRepository instance
-    * @var UserRepository
-    */
-    protected UserRepository $userRepository;
-
-    /**
-    * The AuthenticationInterface instance
-    * @var AuthenticationInterface
-    */
-    protected AuthenticationInterface $authentication;
-
-    /**
     * Create new instance
     * @param Lang $lang
     * @param AuthenticationInterface $authentication
@@ -96,25 +42,16 @@ class UserProfileAction
     * @param UserRepository $userRepository
     */
     public function __construct(
-        Lang $lang,
-        AuthenticationInterface $authentication,
-        Template $template,
-        Flash $flash,
-        RouteHelper $routeHelper,
-        LoggerInterface $logger,
-        StatusList $statusList,
-        HashInterface $hash,
-        UserRepository $userRepository
+        protected Lang $lang,
+        protected AuthenticationInterface $authentication,
+        protected Template $template,
+        protected Flash $flash,
+        protected RouteHelper $routeHelper,
+        protected LoggerInterface $logger,
+        protected StatusList $statusList,
+        protected HashInterface $hash,
+        protected UserRepository $userRepository
     ) {
-        $this->lang = $lang;
-        $this->authentication = $authentication;
-        $this->template = $template;
-        $this->flash = $flash;
-        $this->routeHelper = $routeHelper;
-        $this->logger = $logger;
-        $this->statusList = $statusList;
-        $this->hash = $hash;
-        $this->userRepository = $userRepository;
     }
 
     /**

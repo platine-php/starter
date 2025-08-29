@@ -49,7 +49,11 @@ namespace Platine\App\Provider;
 
 use Platine\App\Helper\StatusList;
 use Platine\App\Http\Action\HomeAction;
+use Platine\Framework\Helper\ActionHelper;
+use Platine\Framework\Helper\FileHelper;
 use Platine\Framework\Helper\Flash;
+use Platine\Framework\Helper\Sidebar;
+use Platine\Framework\Helper\ViewContext;
 use Platine\Framework\Service\ServiceProvider;
 
 /**
@@ -66,5 +70,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(HomeAction::class);
         $this->app->bind(Flash::class);
         $this->app->bind(StatusList::class);
+        $this->app->bind(ActionHelper::class);
+        $this->app->bind(Sidebar::class);
+        $this->app->bind(ViewContext::class);
+        $this->app->bind(FileHelper::class);
     }
 }

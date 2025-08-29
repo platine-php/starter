@@ -8,71 +8,52 @@ use Platine\App\Param\AuthParam;
 use Platine\App\Validator\AuthValidator;
 use Platine\Framework\Auth\AuthenticationInterface;
 use Platine\Framework\Auth\Exception\AuthenticationException;
-use Platine\Framework\Helper\Flash;
-use Platine\Framework\Http\RequestData;
+use Platine\Framework\Helper\ActionHelper;
+use Platine\Framework\Http\Action\BaseAction;
 use Platine\Framework\Http\Response\RedirectResponse;
-use Platine\Framework\Http\Response\TemplateResponse;
-use Platine\Framework\Http\RouteHelper;
-use Platine\Http\Handler\RequestHandlerInterface;
 use Platine\Http\ResponseInterface;
-use Platine\Http\ServerRequestInterface;
-use Platine\Lang\Lang;
-use Platine\Logger\LoggerInterface;
-use Platine\Template\Template;
 
 /**
 * @class AuthAction
 * @package Platine\App\Http\Action\User
+* @template T
+* @extends BaseAction<T>
 */
-class AuthAction implements RequestHandlerInterface
+class AuthAction extends BaseAction
 {
     /**
     * Create new instance
     * @param AuthenticationInterface $authentication
-    * @param Flash $flash
-    * @param RouteHelper $routeHelper
-    * @param Lang $lang
-    * @param LoggerInterface $logger
-    * @param Template $template
+    * @param ActionHelper<T> $actionHelper
     */
     public function __construct(
         protected AuthenticationInterface $authentication,
-        protected Flash $flash,
-        protected RouteHelper $routeHelper,
-        protected Lang $lang,
-        protected LoggerInterface $logger,
-        protected Template $template
+        ActionHelper $actionHelper,
     ) {
+        parent::__construct($actionHelper);
     }
 
     /**
     * {@inheritdoc}
     */
-    public function handle(ServerRequestInterface $request): ResponseInterface
+    public function respond(): ResponseInterface
     {
-        $context = [];
-        $param = new RequestData($request);
+        $this->setView('user/login');
+        $request = $this->request;
+        $param = $this->param;
 
         $formParam = new AuthParam($param->posts());
-        $context['param'] = $formParam;
+        $this->addContext('param', $formParam);
 
         if ($request->getMethod() === 'GET') {
-            return new TemplateResponse(
-                $this->template,
-                'user/login',
-                $context
-            );
+            return $this->viewResponse();
         }
 
         $validator = new AuthValidator($formParam, $this->lang);
         if ($validator->validate() === false) {
-            $context['errors'] = $validator->getErrors();
+            $this->addContext('errors', $validator->getErrors());
 
-            return new TemplateResponse(
-                $this->template,
-                'user/login',
-                $context
-            );
+            return $this->viewResponse();
         }
 
         $username = $formParam->getUsername();
@@ -92,11 +73,7 @@ class AuthAction implements RequestHandlerInterface
 
             $this->flash->setError('Authentication error. Please check your login and/or password.');
 
-            return new TemplateResponse(
-                $this->template,
-                'user/login',
-                $context
-            );
+            return $this->viewResponse();
         }
 
         $returnUrl = $this->routeHelper->generateUrl('home');

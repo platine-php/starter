@@ -20,20 +20,13 @@ use Platine\Validator\Rule\NotEmpty;
 class AuthValidator extends AbstractValidator
 {
     /**
-    * The parameter instance
-    * @var AuthParam<TEntity>
-    */
-    protected AuthParam $param;
-
-    /**
     * Create new instance
     * @param AuthParam<TEntity> $param
     * @param Lang $lang
     */
-    public function __construct(AuthParam $param, Lang $lang)
+    public function __construct(protected AuthParam $param, Lang $lang)
     {
         parent::__construct($lang);
-        $this->param = $param;
     }
 
     /**

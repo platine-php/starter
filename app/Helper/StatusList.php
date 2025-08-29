@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Platine\App\Helper;
 
-use Platine\App\Enum\UserStatus;
+use Platine\Framework\Auth\Enum\UserStatus;
 use Platine\Lang\Lang;
 
 /**

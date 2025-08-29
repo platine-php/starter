@@ -19,20 +19,13 @@ use Platine\Validator\Rule\NotEmpty;
 class ProductCategoryValidator extends AbstractValidator
 {
     /**
-    * The parameter instance
-    * @var ProductCategoryParam<TEntity>
-    */
-    protected ProductCategoryParam $param;
-
-    /**
     * Create new instance
     * @param ProductCategoryParam<TEntity> $param
     * @param Lang $lang
     */
-    public function __construct(ProductCategoryParam $param, Lang $lang)
+    public function __construct(protected ProductCategoryParam $param, Lang $lang)
     {
         parent::__construct($lang);
-        $this->param = $param;
     }
 
     /**

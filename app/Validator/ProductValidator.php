@@ -22,20 +22,13 @@ use Platine\Validator\Rule\Number;
 class ProductValidator extends AbstractValidator
 {
     /**
-    * The parameter instance
-    * @var ProductParam<TEntity>
-    */
-    protected ProductParam $param;
-
-    /**
     * Create new instance
     * @param ProductParam<TEntity> $param
     * @param Lang $lang
     */
-    public function __construct(ProductParam $param, Lang $lang)
+    public function __construct(protected ProductParam $param, Lang $lang)
     {
         parent::__construct($lang);
-        $this->param = $param;
     }
 
     /**

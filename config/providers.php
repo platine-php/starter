@@ -1,9 +1,11 @@
 <?php
     declare(strict_types=1);
+
 use Platine\App\Provider\AppServiceProvider;
 use Platine\App\Provider\ConsoleServiceProvider;
 use Platine\App\Provider\ProductServiceProvider;
 use Platine\App\Provider\UserServiceProvider;
+use Platine\Framework\Service\Provider\AuditServiceProvider;
 use Platine\Framework\Service\Provider\AuthServiceProvider;
 use Platine\Framework\Service\Provider\CommandServiceProvider;
 use Platine\Framework\Service\Provider\DatabaseServiceProvider;
@@ -34,7 +36,7 @@ use Platine\Framework\Service\Provider\TemplateServiceProvider;
         CommandServiceProvider::class,
         AuthServiceProvider::class,
         // ApiAuthServiceProvider::class,
-        // AuditServiceProvider::class,
+        AuditServiceProvider::class,
         PaginationServiceProvider::class,
         SecurityServiceProvider::class,
         ConsoleServiceProvider::class,

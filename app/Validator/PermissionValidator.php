@@ -20,20 +20,13 @@ use Platine\Validator\Rule\NotEmpty;
 class PermissionValidator extends AbstractValidator
 {
     /**
-    * The parameter instance
-    * @var PermissionParam<TEntity>
-    */
-    protected PermissionParam $param;
-
-    /**
     * Create new instance
     * @param PermissionParam<TEntity> $param
     * @param Lang $lang
     */
-    public function __construct(PermissionParam $param, Lang $lang)
+    public function __construct(protected PermissionParam $param, Lang $lang)
     {
         parent::__construct($lang);
-        $this->param = $param;
     }
 
     /**

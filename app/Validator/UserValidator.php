@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Platine\App\Validator;
 
-use Platine\App\Enum\UserStatus;
 use Platine\App\Param\UserParam;
+use Platine\Framework\Auth\Enum\UserStatus;
 use Platine\Framework\Form\Validator\AbstractValidator;
 use Platine\Lang\Lang;
 use Platine\Validator\Rule\AlphaNumericDash;
 use Platine\Validator\Rule\Email;
-use Platine\Validator\Rule\InList;
+use Platine\Validator\Rule\Enum;
 use Platine\Validator\Rule\Matches;
 use Platine\Validator\Rule\MaxLength;
 use Platine\Validator\Rule\MinLength;
@@ -24,28 +24,17 @@ use Platine\Validator\Rule\NotEmpty;
 class UserValidator extends AbstractValidator
 {
     /**
-    * The parameter instance
-    * @var UserParam<TEntity>
-    */
-    protected UserParam $param;
-
-    /**
-     * Whether password field can be empty (on update page)
-     * @var bool
-     */
-    protected bool $ignorePassword;
-
-    /**
     * Create new instance
     * @param UserParam<TEntity> $param
     * @param Lang $lang
     * @param bool $ignorePassword
     */
-    public function __construct(UserParam $param, Lang $lang, bool $ignorePassword = false)
-    {
+    public function __construct(
+        protected UserParam $param,
+        Lang $lang,
+        protected bool $ignorePassword = false
+    ) {
         parent::__construct($lang);
-        $this->param = $param;
-        $this->ignorePassword = $ignorePassword;
     }
 
     /**
@@ -110,7 +99,7 @@ class UserValidator extends AbstractValidator
 
         $this->addRules('status', [
             new NotEmpty(),
-            new InList([UserStatus::ACTIVE, UserStatus::LOCKED]),
+            new Enum(UserStatus::class),
         ]);
 
         $this->addRules('role', [

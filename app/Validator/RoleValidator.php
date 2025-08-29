@@ -19,20 +19,13 @@ use Platine\Validator\Rule\NotEmpty;
 class RoleValidator extends AbstractValidator
 {
     /**
-    * The parameter instance
-    * @var RoleParam<TEntity>
-    */
-    protected RoleParam $param;
-
-    /**
     * Create new instance
     * @param RoleParam<TEntity> $param
     * @param Lang $lang
     */
-    public function __construct(RoleParam $param, Lang $lang)
+    public function __construct(protected RoleParam $param, Lang $lang)
     {
         parent::__construct($lang);
-        $this->param = $param;
     }
 
     /**
